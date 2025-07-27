@@ -1,4 +1,4 @@
-package pt.rematch.lusitano.interfaces.discord.common;
+package pt.rematch.lusitano.application.discord.common;
 
 import java.util.EnumSet;
 import java.util.stream.Collectors;
@@ -21,8 +21,8 @@ import pt.rematch.lusitano.domain.annotation.ServiceListener;
 @RequiredArgsConstructor
 public class Factory {
 
-    @ConfigProperty(name = "rlbot.discord.token")
-    private String token;
+    @ConfigProperty(name = "rematch-federation-bot.discord.token")
+    String token;
 
     @Produces
     public JDA jdaFactory() {

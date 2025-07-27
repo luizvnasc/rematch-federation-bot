@@ -1,0 +1,7 @@
+rematch-federation-bot:
+  discord:
+    token: ${REMATCH_BOT_DISCORD_TOKEN}
+
+steam:
+  api:
+    key: ${STEAM_API_KEY}
