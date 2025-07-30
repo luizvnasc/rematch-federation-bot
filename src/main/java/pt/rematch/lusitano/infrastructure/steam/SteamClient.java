@@ -23,6 +23,10 @@ public class SteamClient implements SteamAPIRequester {
     @Override
     public void validateSteamId(String steamId) throws SteamException {
         try {
+            if (steamId == null || steamId.isEmpty()) {
+                log.error("Steam ID is null or empty for Discord ID: {}", steamId);
+                throw new IllegalArgumentException("Steam ID cannot be null or empty");
+            }
             var playerSummariesRequest = SteamWebApiRequestFactory.createGetPlayerSummariesRequest(List.of(steamId));
             var playerSummaries = client.<GetPlayerSummaries> processRequest(playerSummariesRequest);
             log.info(playerSummaries.toString());
