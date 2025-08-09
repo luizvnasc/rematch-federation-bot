@@ -1,0 +1,18 @@
+rematch-federation-bot:
+  discord:
+    token: ${REMATCH_BOT_DISCORD_TOKEN}
+
+steam:
+  api:
+    key: ${STEAM_API_KEY}
+
+quarkus:
+  datasource:
+    db-kind: postgresql
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    jdbc:
+      url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:rematch}
+  hibernate-orm:
+    schema-management:
+      strategy: drop-and-create

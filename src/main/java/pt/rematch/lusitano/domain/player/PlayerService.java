@@ -3,9 +3,9 @@ package pt.rematch.lusitano.domain.player;
 import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import pt.rematch.lusitano.domain.enums.GamePlatformEnum;
 import pt.rematch.lusitano.domain.exception.AppExeption;
 import pt.rematch.lusitano.domain.steam.SteamAPIRequester;
+import pt.rematch.lusitano.domain.steam.SteamException;
 
 @Singleton
 @RequiredArgsConstructor
@@ -13,28 +13,31 @@ import pt.rematch.lusitano.domain.steam.SteamAPIRequester;
 public class PlayerService {
 
     private final SteamAPIRequester steamClient;
+    private final PlayerNotificationRepository notificationService;
+    private final PlayerRepository repository;
 
     // Define methods that will be implemented by classes that handle athlete
     // operations
-    public void registerAthlete(String discordId, GamePlatformEnum platform, String platformId) throws AppExeption {
-        log.info("Registering athlete with Discord ID: {}, Platform: {}, Platform ID: {}", discordId, platform,
-                platformId);
-        switch (platform) {
+    public void registerPlayer(Player player) throws AppExeption {
+        log.info("Registering player: {}", player);
+        validateOnPlatform(player);
+        repository.save(player);
+
+        notificationService.notifyPlayerRegistered(player);
+
+    }
+
+    private void validateOnPlatform(Player player) throws SteamException {
+        switch (player.getPlatform()) {
             case STEAM -> {
-                registerSteamAthlete(discordId, platformId);
+                steamClient.validateSteamId(player.getPlatformId());
             }
-            default -> log.warn("Unsupported platform: {}", platform);
-        };
-
+            default -> throw new UnsupportedOperationException("Unsupported platform: " + player.getPlatform().name());
+        }
+        ;
     }
 
-    private void registerSteamAthlete(String discordId, String steamId) throws AppExeption {
-        log.debug("Registering Steam athlete with Discord ID: {}, Steam ID: {}", discordId, steamId);
-        steamClient.validateSteamId(steamId);
-
-    }
-
-    public Player getAthleteByDiscordId(String discordId) {
+    public Player getPlayerByDiscord(String discordId) {
         return null;
     }
 

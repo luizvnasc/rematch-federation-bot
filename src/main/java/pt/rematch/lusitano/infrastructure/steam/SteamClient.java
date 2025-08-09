@@ -22,6 +22,7 @@ public class SteamClient implements SteamAPIRequester {
 
     @Override
     public void validateSteamId(String steamId) throws SteamException {
+
         try {
             if (steamId == null || steamId.isEmpty()) {
                 log.error("Steam ID is null or empty for Discord ID: {}", steamId);

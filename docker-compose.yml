@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: rematch
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+        docker-entrypoint.sh postgres &
+        until pg_isready -U postgres; do sleep 1; done
+        psql -U postgres -c "CREATE DATABASE rematch;" || true
+        wait
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
