@@ -7,6 +7,7 @@ package pt.rematch.lusitano.domain.enums;
 public enum GamePlatformEnum {
     STEAM, PSN, XBOX;
 
+
     public static GamePlatformEnum getByName(String platform) {
         try {
             return GamePlatformEnum.valueOf(platform.toUpperCase());

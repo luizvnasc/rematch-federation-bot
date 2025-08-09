@@ -9,14 +9,17 @@ repositories {
 }
 
 dependencies {
+    implementation 'io.quarkus:quarkus-config-yaml'
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
-    implementation 'io.quarkus:quarkus-hibernate-reactive-panache'
+    implementation 'io.quarkus:quarkus-hibernate-orm-panache'
     implementation 'io.quarkus:quarkus-rest-client'
     implementation 'io.quarkus:quarkus-jdbc-postgresql'
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-rest-client-jackson'
+
     // https://mvnrepository.com/artifact/net.dv8tion/JDA
     implementation 'net.dv8tion:JDA:5.6.1'
+    implementation 'com.lukaspradel:steam-web-api:1.11.0'
     
     //lombok
     compileOnly 'org.projectlombok:lombok:1.18.30'

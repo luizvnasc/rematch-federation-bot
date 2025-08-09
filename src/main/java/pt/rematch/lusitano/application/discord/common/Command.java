@@ -1,4 +1,4 @@
-package pt.rematch.lusitano.interfaces.discord.common;
+package pt.rematch.lusitano.application.discord.common;
 
 import java.util.List;
 import java.util.Set;
@@ -9,19 +9,19 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 public interface Command {
 
-    String getName();
+    String getCommand();
 
     String getDescription();
 
-    InteractionContextType getContextType();
+    Set<InteractionContextType> getContextType();
 
     Set<IntegrationType> getIntegrationType();
 
     List<OptionData> getOptions();
 
-    public static <E extends Enum<E> & Command> E fromName(Class<E> enumClass, String name) {
+    static <E extends Enum<E> & Command> E fromCommand(Class<E> enumClass, String name) {
         for (E command : enumClass.getEnumConstants()) {
-            if (command.getName().equalsIgnoreCase(name)) {
+            if (command.getCommand().equalsIgnoreCase(name)) {
                 return command;
             }
         }
